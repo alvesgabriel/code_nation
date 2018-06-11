@@ -1,7 +1,6 @@
-import json
-
 import pandas as pd
-import requests
+
+from data_science import make_answer, submit
 
 
 def get_better_grades():
@@ -23,25 +22,8 @@ def get_better_grades():
     return answer
 
 
-def make_answer(answer):
-    return {
-        'token': '5a66cb603690853e851f162caa295cc7c7dc721c',
-        'email': 'gabriel.alves.monteiro1@gmail.com',
-        'answer': answer,
-    }
-
-
-def submit():
+if __name__ == '__main__':
     url = 'https://api.codenation.com.br/v1/user/acceleration/data-science/challenge/enem-1/submit'
     answer = get_better_grades()
     data = make_answer(answer)
-    print(data)
-    resp = requests.post(url, data=json.dumps(data))
-    print(resp, resp.json())
-    print(resp.content)
-    print(resp.text)
-
-
-if __name__ == '__main__':
-    submit()
-
+    submit(url, data)
