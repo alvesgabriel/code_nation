@@ -1,0 +1,62 @@
+[
+    {
+        "name": "moby/moby",
+        "description": "Moby Project - a collaborative project for the container ecosystem to assemble container-based systems",
+        "url": "https://api.github.com/repos/moby/moby",
+        "stars": 49626
+    },
+    {
+        "name": "golang/go",
+        "description": "The Go programming language",
+        "url": "https://api.github.com/repos/golang/go",
+        "stars": 44437
+    },
+    {
+        "name": "kubernetes/kubernetes",
+        "description": "Production-Grade Container Scheduling and Management",
+        "url": "https://api.github.com/repos/kubernetes/kubernetes",
+        "stars": 39005
+    },
+    {
+        "name": "getlantern/lantern",
+        "description": "🔴Lantern Latest Download https://github.com/getlantern/lantern/releases/tag/latest 🔴蓝灯最新版本下载 https://github.com/getlantern/download 🔴 ",
+        "url": "https://api.github.com/repos/getlantern/lantern",
+        "stars": 36278
+    },
+    {
+        "name": "avelino/awesome-go",
+        "description": "A curated list of awesome Go frameworks, libraries and software",
+        "url": "https://api.github.com/repos/avelino/awesome-go",
+        "stars": 33219
+    },
+    {
+        "name": "gohugoio/hugo",
+        "description": "The world’s fastest framework for building websites.",
+        "url": "https://api.github.com/repos/gohugoio/hugo",
+        "stars": 27345
+    },
+    {
+        "name": "gogs/gogs",
+        "description": "Gogs is a painless self-hosted Git service.",
+        "url": "https://api.github.com/repos/gogs/gogs",
+        "stars": 26250
+    },
+    {
+        "name": "astaxie/build-web-application-with-golang",
+        "description": "A golang ebook intro how to build a web with golang",
+        "url": "https://api.github.com/repos/astaxie/build-web-application-with-golang",
+        "stars": 24044
+    },
+    {
+        "name": "grafana/grafana",
+        "description": "The tool for beautiful monitoring and metric analytics \u0026 dashboards for Graphite, InfluxDB \u0026 Prometheus \u0026 More",
+        "url": "https://api.github.com/repos/grafana/grafana",
+        "stars": 22850
+    },
+    {
+        "name": "syncthing/syncthing",
+        "description": "Open Source Continuous File Synchronization",
+        "url": "https://api.github.com/repos/syncthing/syncthing",
+        "stars": 21298
+    }
+]
