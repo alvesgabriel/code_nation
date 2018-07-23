@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
+	"sort"
 )
 
 type fileStruct struct {
@@ -20,35 +22,18 @@ func main() {
 }
 
 func jsonify(dir string) error {
-	var files []fileStruct
-	dirname := path.Dir(dir)
-	filesDir, err := ioutil.ReadDir(dirname)
+	f, err := createFileJSON()
 	if err != nil {
-		return fmt.Errorf("Not a dir. %+v", err)
+		return err
 	}
-	for _, f := range filesDir {
-		name := f.Name()
-		pathname := fmt.Sprintf("%v/%v", dirname, name)
-		// fmt.Println(name, pathname)
+	f.Close()
 
-		// fi, err := os.Stat(name)
-		// if err != nil {
-		// 	return fmt.Errorf("Not a file. %+v", err)
-		// }
-		// switch mode := fi.Mode(); {
-		// case mode.IsDir():
-		// 	jsonify(pathname)
-		// case mode.IsRegular():
-		// }
-		file := fileStruct{
-			Name: name,
-			Path: pathname,
-		}
-		files = append(files, file)
+	files := crateJSON(dir)
+	sort.Slice(files, func(i, j int) bool {
+		return path.Dir(files[i].Path) <= path.Dir(files[j].Path)
+	})
 
-		// fmt.Printf("%+v\n", files)
-	}
-	err = saveJson(files)
+	err = saveJSON(files)
 	if err != nil {
 		return fmt.Errorf(err.Error())
 	}
@@ -56,20 +41,56 @@ func jsonify(dir string) error {
 	return nil
 }
 
-func saveJson(data []fileStruct) error {
-	filename := "files.json"
+func crateJSON(dir string) []fileStruct {
+	var files []fileStruct
 
+	filesDir, err := ioutil.ReadDir(dir)
+	if err != nil {
+		return nil
+	}
+
+	for _, f := range filesDir {
+		name := f.Name()
+		pathname := "./" + path.Join(dir, name)
+
+		if f.IsDir() {
+			files = append(files, crateJSON(pathname)...)
+		} else {
+			file := fileStruct{
+				Name: name,
+				Path: pathname,
+			}
+			files = append(files, file)
+		}
+	}
+	return files
+}
+
+func saveJSON(data []fileStruct) error {
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		return fmt.Errorf("Not created json. %+v", err)
 	}
 
-	f, err := os.Create(filename)
+	var jsonFormat bytes.Buffer
+	json.Indent(&jsonFormat, jsonData, "", "    ")
+
+	f, err := createFileJSON()
 	if err != nil {
-		return fmt.Errorf("Not opened %+v. %+v", filename, err)
+		return err
 	}
 	defer f.Close()
-	f.Write([]byte(jsonData))
+	jsonFormat.WriteTo(f)
 
 	return nil
+}
+
+func createFileJSON() (*os.File, error) {
+	filename := "files.json"
+	f, err := os.Create(filename)
+	if err != nil {
+		return nil, fmt.Errorf("Not opened %+v. %+v", filename, err)
+	}
+
+	return f, nil
 }

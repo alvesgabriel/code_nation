@@ -1,0 +1,54 @@
+[
+	{
+		"name": "files.json",
+		"path": "./files.json"
+	},
+	{
+		"name": "go-0",
+		"path": "./go-0"
+	},
+	{
+		"name": "README.md",
+		"path": "./go-0/README.md"
+	},
+	{
+		"name": "main.go",
+		"path": "./go-0/main.go"
+	},
+	{
+		"name": "main_test.go",
+		"path": "./go-0/main_test.go"
+	},
+	{
+		"name": "output.xml",
+		"path": "./go-0/output.xml"
+	},
+	{
+		"name": "stdout.txt",
+		"path": "./go-0/stdout.txt"
+	},
+	{
+		"name": "submit_test.go",
+		"path": "./go-0/submit_test.go"
+	},
+	{
+		"name": "go-1",
+		"path": "./go-1"
+	},
+	{
+		"name": "README.md",
+		"path": "./go-1/README.md"
+	},
+	{
+		"name": "files.json",
+		"path": "./go-1/files.json"
+	},
+	{
+		"name": "main.go",
+		"path": "./go-1/main.go"
+	},
+	{
+		"name": "main_test.go",
+		"path": "./go-1/main_test.go"
+	}
+]
