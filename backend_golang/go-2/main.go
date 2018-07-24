@@ -22,22 +22,20 @@ var players [][]string
 
 func main() {
 	//Todas as perguntas são referentes ao arquivo data.csv
-	for i, v := range players[0] {
-		if v == "birth_date" {
-			fmt.Println(i, v)
-		}
-	}
+	// for i, v := range players[0] {
+	// 	if v == "birth_date" {
+	// 		fmt.Println(i, v)
+	// 	}
+	// }
 	// fmt.Println(players[1][17])
 	// fmt.Println(players[42][17])
-	// fmt.Println(q1())
-	// fmt.Println(q2())
-	// fmt.Println(q3())
-	// fmt.Println(q4())
-	names, _ := q5()
-	for _, name := range names {
-		fmt.Println(name)
-	}
-	// fmt.Println(q6())
+	// q, _ := q1()
+	// q, _ := q2()
+	// q, _ := q3()
+	// q, _ := q4()
+	// q, _ := q5()
+	// q, _ := q6()
+	// fmt.Printf("%T: %+v\n", q, q)
 }
 
 func init() {
@@ -72,10 +70,12 @@ func q1() (int, error) {
 func q2() (int, error) {
 	var clubs = make(map[string]int)
 	for _, player := range players[1:] {
-		if _, ok := clubs[player[3]]; !ok {
+		if _, ok := clubs[player[3]]; !ok && player[3] != "" {
 			clubs[player[3]] = 0
 		}
-		clubs[player[3]]++
+		if player[3] != "" {
+			clubs[player[3]]++
+		}
 	}
 	return len(clubs), nil
 	// return 0, fmt.Errorf("Not implemented")
@@ -85,7 +85,8 @@ func q2() (int, error) {
 func q3() ([]string, error) {
 	var names = []string{}
 	for _, player := range players[1:21] {
-		name := strings.Split(player[2], " ")[0]
+		// name := strings.Split(player[2], " ")[0]
+		name := player[2]
 		names = append(names, name)
 	}
 	return names, nil
@@ -104,11 +105,12 @@ func q4() ([]string, error) {
 		salaries = append(salaries, p)
 	}
 	sort.Slice(salaries, func(i, j int) bool {
-		return salaries[i].Salary > salaries[j].Salary
+		return salaries[i].Salary >= salaries[j].Salary
 	})
 
 	var names = []string{}
 	for _, player := range salaries[:10] {
+		// fmt.Println(player)
 		names = append(names, player.Name)
 	}
 
@@ -129,14 +131,16 @@ func q5() ([]string, error) {
 		ages = append(ages, p)
 	}
 	sort.Slice(ages, func(i, j int) bool {
-		return ages[i].Age > ages[j].Age
+		if ages[i].Age != ages[j].Age {
+			return ages[i].Age > ages[j].Age
+		}
+		return len(ages[i].Name) < len(ages[j].Name)
 	})
+
 	eldestPlayers := ages[:10]
-	sort.Slice(eldestPlayers, func(i, j int) bool {
-		return eldestPlayers[i].Birth < eldestPlayers[j].Birth
-	})
 	var names = []string{}
 	for _, player := range eldestPlayers {
+		fmt.Println(player)
 		names = append(names, player.Name)
 	}
 
