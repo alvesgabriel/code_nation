@@ -29,13 +29,24 @@ def to_sha1(msg):
     m = sha1(b)
     return m.hexdigest()
 
+
+def write_json(filename, json_obj):
+    with open(filename, 'w') as fl:
+        fl.write(json.dumps(json_obj, indent=True))
+        fl.close()
+
+
 if __name__ == "__main__":
-    j = open_json('answer.json')
-    j['decifrado'] =  decrypt(j['cifrado'], j['numero_casas'])
-    j['resumo_criptografico'] = to_sha1(j['decifrado'])
+    filename = 'answer.json'
+    json_obj = open_json(filename)
+    json_obj['decifrado'] =  decrypt(json_obj['cifrado'], json_obj['numero_casas'])
+    json_obj['resumo_criptografico'] = to_sha1(json_obj['decifrado'])
+    write_json(filename, json_obj)
     url = 'https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token='
-    files = {'answer': open('answer.json', 'rb')}
-    resp = requests.post(url + j['token'], files=files)
-    print(j)
-    print(resp.status_code, resp.headers)
-    print(resp.content)
+    with open('answer.json', 'rb') as fl:
+        files = {'answer': fl}
+        print(files)
+        resp = requests.post(url + json_obj['token'], files=files)
+        print(resp.status_code, resp.headers)
+        print(resp.json())
+        fl.close()
